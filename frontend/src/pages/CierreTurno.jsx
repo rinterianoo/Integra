@@ -133,21 +133,21 @@ export default function CierreTurno() {
                 
                 <div className="text-center p-4 bg-green-50 rounded-lg">
                   <div className="text-3xl font-bold text-green-600">
-                    ${arqueo.totalVentas.subtotal.toFixed(2)}
+                    Q${arqueo.totalVentas.subtotal.toFixed(2)}
                   </div>
                   <div className="text-sm text-gray-600">Subtotal</div>
                 </div>
                 
                 <div className="text-center p-4 bg-red-50 rounded-lg">
                   <div className="text-3xl font-bold text-red-600">
-                    ${arqueo.totalVentas.descuento.toFixed(2)}
+                    Q${arqueo.totalVentas.descuento.toFixed(2)}
                   </div>
                   <div className="text-sm text-gray-600">Descuentos</div>
                 </div>
                 
                 <div className="text-center p-4 bg-purple-50 rounded-lg">
                   <div className="text-3xl font-bold text-purple-600">
-                    ${arqueo.totalVentas.propina.toFixed(2)}
+                    Q${arqueo.totalVentas.propina.toFixed(2)}
                   </div>
                   <div className="text-sm text-gray-600">Propinas</div>
                 </div>
@@ -157,7 +157,7 @@ export default function CierreTurno() {
                 <div className="flex justify-between items-center">
                   <span className="text-xl font-semibold text-gray-700">Total Vendido:</span>
                   <span className="text-3xl font-bold text-green-600">
-                    ${arqueo.totalVentas.total.toFixed(2)}
+                    Q${arqueo.totalVentas.total.toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -194,7 +194,7 @@ export default function CierreTurno() {
                         </div>
                       </div>
                       <div className="text-2xl font-bold text-gray-800">
-                        ${metodo.total.toFixed(2)}
+                        Q${metodo.total.toFixed(2)}
                       </div>
                     </div>
                   );
@@ -223,7 +223,7 @@ export default function CierreTurno() {
                           {producto.cantidad_vendida}
                         </td>
                         <td className="px-4 py-3 text-sm text-right font-semibold text-green-600">
-                          ${producto.total_vendido.toFixed(2)}
+                          Q${producto.total_vendido.toFixed(2)}
                         </td>
                       </tr>
                     ))}
@@ -243,20 +243,20 @@ export default function CierreTurno() {
                 <div className="space-y-3">
                   <div className="flex justify-between p-3 bg-gray-50 rounded">
                     <span className="text-gray-700">Monto Inicial:</span>
-                    <span className="font-bold">${turnoActivo.monto_inicial.toFixed(2)}</span>
+                    <span className="font-bold">Q${turnoActivo.monto_inicial.toFixed(2)}</span>
                   </div>
                   
                   <div className="flex justify-between p-3 bg-green-50 rounded">
                     <span className="text-gray-700">Ventas en Efectivo:</span>
                     <span className="font-bold text-green-600">
-                      +${ventasEfectivo.toFixed(2)}
+                      +Q${ventasEfectivo.toFixed(2)}
                     </span>
                   </div>
                   
                   <div className="flex justify-between p-3 bg-blue-50 rounded border-2 border-blue-200">
                     <span className="font-semibold text-gray-800">Monto Esperado:</span>
                     <span className="font-bold text-blue-600 text-lg">
-                      ${montoEsperado.toFixed(2)}
+                      Q${montoEsperado.toFixed(2)}
                     </span>
                   </div>
                 </div>
@@ -302,7 +302,7 @@ export default function CierreTurno() {
                           ? 'text-blue-600'
                           : 'text-red-600'
                       }`}>
-                        {diferencia > 0 ? '+' : ''}${diferencia.toFixed(2)}
+                        {diferencia > 0 ? '+' : ''}Q${diferencia.toFixed(2)}
                       </span>
                     </div>
                   </div>

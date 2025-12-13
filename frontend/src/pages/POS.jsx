@@ -231,7 +231,7 @@ export default function POS() {
                 onClick={handleProcesarPago}
                 className="w-full px-6 py-4 bg-primary text-white rounded-lg text-xl font-bold hover:bg-primary-dark transition"
               >
-                Procesar Pago - ${total.toFixed(2)}
+                Procesar Pago - Q{total.toFixed(2)}
               </button>
             </div>
           )}
@@ -283,7 +283,7 @@ export default function POS() {
                       </div>
                       <div className="text-right">
                         <div className="text-xl font-bold text-green-600">
-                          ${orden.datos_orden.items.reduce((sum, item) => 
+                          Q${orden.datos_orden.items.reduce((sum, item) => 
                             sum + (item.precio_unitario * item.cantidad), 0
                           ).toFixed(2)}
                         </div>
@@ -305,9 +305,9 @@ export default function POS() {
             <div>
               <h3 className="font-bold text-lg mb-2">¡Venta Completada!</h3>
               <p className="text-sm mb-1">Venta: {ventaCompletada.numero_venta}</p>
-              <p className="text-sm mb-1">Total: ${ventaCompletada.total.toFixed(2)}</p>
+              <p className="text-sm mb-1">Total: Q${ventaCompletada.total.toFixed(2)}</p>
               {ventaCompletada.cambio > 0 && (
-                <p className="text-sm font-bold">Cambio: ${ventaCompletada.cambio.toFixed(2)}</p>
+                <p className="text-sm font-bold">Cambio: Q${ventaCompletada.cambio.toFixed(2)}</p>
               )}
             </div>
           </div>
