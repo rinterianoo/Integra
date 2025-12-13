@@ -164,7 +164,7 @@ export default function BusquedaProductos({ onAgregarProducto }) {
                   </div>
                   
                   <div className="text-2xl font-bold text-primary text-center">
-                    Q${parseFloat(producto.precio).toFixed(2)}
+                    Q{parseFloat(producto.precio).toFixed(2)}
                   </div>
                 </div>
               ))}

@@ -103,7 +103,7 @@ export default function ModalPago({ total, onCerrar, onConfirmar }) {
             <div className="flex justify-between items-center">
               <span className="text-lg text-gray-700">Total a Pagar:</span>
               <span className="text-3xl font-bold text-blue-600">
-                Q${total.toFixed(2)}
+                Q{total.toFixed(2)}
               </span>
             </div>
           </div>
@@ -195,19 +195,19 @@ export default function ModalPago({ total, onCerrar, onConfirmar }) {
             <div className="flex justify-between text-lg">
               <span className="text-gray-700">Total Pagado:</span>
               <span className={`font-bold ${totalPagado >= total ? 'text-green-600' : 'text-red-600'}`}>
-                Q${totalPagado.toFixed(2)}
+                Q{totalPagado.toFixed(2)}
               </span>
             </div>
             
             {restante > 0 ? (
               <div className="flex justify-between text-lg text-red-600">
                 <span>Restante:</span>
-                <span className="font-bold">Q${restante.toFixed(2)}</span>
+                <span className="font-bold">Q{restante.toFixed(2)}</span>
               </div>
             ) : cambio > 0 && (
               <div className="flex justify-between text-lg text-green-600">
                 <span>Cambio:</span>
-                <span className="font-bold">Q${cambio.toFixed(2)}</span>
+                <span className="font-bold">Q{cambio.toFixed(2)}</span>
               </div>
             )}
           </div>
