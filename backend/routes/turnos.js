@@ -5,7 +5,7 @@ import {
   cerrarTurno, 
   obtenerArqueo 
 } from '../controllers/turnosController.js';
-import { verificarToken } from '../controllers/authController.js';
+import { verificarToken } from '../middleware/auth.js';
 
 const router = express.Router();
 

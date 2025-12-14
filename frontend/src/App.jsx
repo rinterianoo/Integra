@@ -9,6 +9,7 @@ import POS from './pages/POS'
 import AperturaTurno from './pages/AperturaTurno'
 import CierreTurno from './pages/CierreTurno'
 import Productos from './pages/Productos'
+import Tiendas from './pages/Tiendas'
 
 function App() {
   return (
@@ -31,6 +32,16 @@ function App() {
                 <ProtectedRoute>
                   <Layout>
                     <Dashboard />
+                  </Layout>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/tiendas" 
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <Tiendas />
                   </Layout>
                 </ProtectedRoute>
               } 

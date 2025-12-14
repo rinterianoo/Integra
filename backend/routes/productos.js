@@ -11,7 +11,7 @@ import {
   actualizarCategoria,
   eliminarCategoria
 } from '../controllers/productosController.js';
-import { verificarToken } from '../controllers/authController.js';
+import { verificarToken } from '../middleware/auth.js';
 
 const router = express.Router();
 

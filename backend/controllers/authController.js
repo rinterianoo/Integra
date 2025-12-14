@@ -7,13 +7,25 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    const [usuarios] = await pool.query('SELECT * FROM usuarios WHERE email = ? AND activo = 1', [email]);
+    const [usuarios] = await pool.query(
+      `SELECT u.*, t.nombre as tienda_nombre, t.activa as tienda_activa 
+       FROM usuarios u 
+       INNER JOIN tiendas t ON u.tienda_id = t.id 
+       WHERE u.email = ? AND u.activo = 1`,
+      [email]
+    );
     
     if (usuarios.length === 0) {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
     
     const usuario = usuarios[0];
+    
+    // Verificar que la tienda esté activa
+    if (!usuario.tienda_activa) {
+      return res.status(403).json({ error: 'La tienda no está activa' });
+    }
+    
     const passwordValido = bcrypt.compareSync(password, usuario.password);
     
     if (!passwordValido) {
@@ -21,13 +33,18 @@ export const login = async (req, res) => {
     }
     
     const token = jwt.sign(
-      { id: usuario.id, email: usuario.email, rol: usuario.rol },
+      { 
+        id: usuario.id, 
+        email: usuario.email, 
+        rol: usuario.rol,
+        tienda_id: usuario.tienda_id
+      },
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN }
     );
     
     // No enviar password
-    const { password: _, ...usuarioSinPassword } = usuario;
+    const { password: _, tienda_activa, ...usuarioSinPassword } = usuario;
     
     res.json({
       token,
@@ -43,7 +60,11 @@ export const login = async (req, res) => {
 export const obtenerPerfil = async (req, res) => {
   try {
     const [usuarios] = await pool.query(
-      'SELECT id, nombre, email, rol, activo FROM usuarios WHERE id = ?',
+      `SELECT u.id, u.nombre, u.email, u.rol, u.activo, u.tienda_id,
+              t.nombre as tienda_nombre
+       FROM usuarios u
+       INNER JOIN tiendas t ON u.tienda_id = t.id
+       WHERE u.id = ?`,
       [req.usuario.id]
     );
     

@@ -9,7 +9,8 @@ import {
   Cog6ToothIcon,
   ArrowRightOnRectangleIcon,
   Bars3Icon,
-  XMarkIcon
+  XMarkIcon,
+  BuildingStorefrontIcon
 } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
@@ -28,7 +29,13 @@ export default function Sidebar() {
       nombre: 'Dashboard',
       icon: HomeIcon,
       ruta: '/dashboard',
-      roles: ['administrador', 'cajero', 'supervisor']
+      roles: ['super_admin', 'administrador', 'cajero', 'supervisor']
+    },
+    {
+      nombre: 'Tiendas',
+      icon: BuildingStorefrontIcon,
+      ruta: '/tiendas',
+      roles: ['super_admin']
     },
     {
       nombre: 'Punto de Venta',

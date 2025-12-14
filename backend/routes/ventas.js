@@ -6,7 +6,7 @@ import {
   cancelarVenta,
   obtenerEstadisticas
 } from '../controllers/ventasController.js';
-import { verificarToken } from '../controllers/authController.js';
+import { verificarToken } from '../middleware/auth.js';
 
 const router = express.Router();
 

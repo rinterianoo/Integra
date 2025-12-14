@@ -25,6 +25,8 @@ export const crearVenta = async (req, res) => {
       notas,
       estado = 'completada'
     } = req.body;
+    
+    const tienda_id = req.usuario.tienda_id;
 
     // Validar que hay items
     if (!items || items.length === 0) {
@@ -34,8 +36,8 @@ export const crearVenta = async (req, res) => {
 
     // Validar turno activo
     const [turnos] = await connection.execute(
-      'SELECT * FROM turnos WHERE id = ? AND estado = "abierto"',
-      [turno_id]
+      'SELECT * FROM turnos WHERE id = ? AND tienda_id = ? AND estado = "abierto"',
+      [turno_id, tienda_id]
     );
     
     if (turnos.length === 0) {
@@ -59,9 +61,10 @@ export const crearVenta = async (req, res) => {
     // Crear venta
     const numero_venta = generarNumeroVenta();
     const [resultVenta] = await connection.execute(`
-      INSERT INTO ventas (numero_venta, usuario_id, turno_id, cliente_nombre, subtotal, descuento, propina, total, estado, notas)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO ventas (tienda_id, numero_venta, usuario_id, turno_id, cliente_nombre, subtotal, descuento, propina, total, estado, notas)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `, [
+      tienda_id,
       numero_venta,
       usuario_id,
       turno_id,
@@ -286,6 +289,7 @@ export const cancelarVenta = async (req, res) => {
 // Obtener estadísticas del dashboard
 export const obtenerEstadisticas = async (req, res) => {
   try {
+    const tienda_id = req.usuario.tienda_id;
     const hoy = new Date();
     hoy.setHours(0, 0, 0, 0);
     
@@ -299,9 +303,10 @@ export const obtenerEstadisticas = async (req, res) => {
         COALESCE(SUM(total), 0) as totalHoy,
         COALESCE(SUM(cantidad_items), 0) as productosVendidos
       FROM ventas
-      WHERE DATE(fecha_creacion) = CURDATE()
+      WHERE tienda_id = ?
+      AND DATE(fecha_creacion) = CURDATE()
       AND estado = 'completada'
-    `);
+    `, [tienda_id]);
 
     // Ventas y total de ayer
     const [ventasAyer] = await pool.query(`
@@ -309,23 +314,24 @@ export const obtenerEstadisticas = async (req, res) => {
         COUNT(*) as ventasAyer,
         COALESCE(SUM(total), 0) as totalAyer
       FROM ventas
-      WHERE DATE(fecha_creacion) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+      WHERE tienda_id = ?
+      AND DATE(fecha_creacion) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)
       AND estado = 'completada'
-    `);
+    `, [tienda_id]);
 
     // Turnos activos
     const [turnosActivos] = await pool.query(`
       SELECT COUNT(*) as turnosActivos
       FROM turnos
-      WHERE estado = 'abierto'
-    `);
+      WHERE tienda_id = ? AND estado = 'abierto'
+    `, [tienda_id]);
 
     // Productos con stock bajo
     const [stockBajo] = await pool.query(`
       SELECT COUNT(*) as stockBajo
       FROM productos
-      WHERE activo = 1 AND stock <= stock_minimo
-    `);
+      WHERE tienda_id = ? AND activo = 1 AND stock <= stock_minimo
+    `, [tienda_id]);
 
     res.json({
       ventasHoy: parseInt(ventasHoy[0].ventasHoy) || 0,

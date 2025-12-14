@@ -4,11 +4,12 @@ import pool from '../database/schema.js';
 export const abrirTurno = async (req, res) => {
   try {
     const { usuario_id, monto_inicial, notas } = req.body;
+    const tienda_id = req.usuario.tienda_id;
     
     // Verificar si hay un turno abierto
     const [turnosAbiertos] = await pool.query(
-      `SELECT * FROM turnos WHERE usuario_id = ? AND estado = 'abierto'`,
-      [usuario_id]
+      `SELECT * FROM turnos WHERE usuario_id = ? AND tienda_id = ? AND estado = 'abierto'`,
+      [usuario_id, tienda_id]
     );
     
     if (turnosAbiertos.length > 0) {
@@ -16,9 +17,9 @@ export const abrirTurno = async (req, res) => {
     }
     
     const [result] = await pool.query(
-      `INSERT INTO turnos (usuario_id, monto_inicial, notas, estado)
-       VALUES (?, ?, ?, 'abierto')`,
-      [usuario_id, monto_inicial, notas || '']
+      `INSERT INTO turnos (tienda_id, usuario_id, monto_inicial, notas, estado)
+       VALUES (?, ?, ?, ?, 'abierto')`,
+      [tienda_id, usuario_id, monto_inicial, notas || '']
     );
     
     const [turnos] = await pool.query('SELECT * FROM turnos WHERE id = ?', [result.insertId]);
@@ -39,15 +40,16 @@ export const abrirTurno = async (req, res) => {
 export const obtenerTurnoActivo = async (req, res) => {
   try {
     const { usuario_id } = req.params;
+    const tienda_id = req.usuario.tienda_id;
     
     const [turnos] = await pool.query(`
       SELECT t.*, u.nombre as usuario_nombre
       FROM turnos t
       JOIN usuarios u ON t.usuario_id = u.id
-      WHERE t.usuario_id = ? AND t.estado = 'abierto'
+      WHERE t.usuario_id = ? AND t.tienda_id = ? AND t.estado = 'abierto'
       ORDER BY t.fecha_apertura DESC
       LIMIT 1
-    `, [usuario_id]);
+    `, [usuario_id, tienda_id]);
     
     if (turnos.length === 0) {
       return res.status(404).json({ error: 'No hay turno activo' });

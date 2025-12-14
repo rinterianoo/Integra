@@ -4,15 +4,16 @@ import pool from '../database/schema.js';
 export const obtenerProductos = async (req, res) => {
   try {
     const { busqueda, categoria } = req.query;
+    const tienda_id = req.usuario.tienda_id;
     
     let query = `
       SELECT p.*, c.nombre as categoria_nombre 
       FROM productos p
       LEFT JOIN categorias c ON p.categoria_id = c.id
-      WHERE p.activo = 1
+      WHERE p.activo = 1 AND p.tienda_id = ?
     `;
     
-    const params = [];
+    const params = [tienda_id];
     
     if (busqueda) {
       query += ` AND (p.codigo LIKE ? OR p.nombre LIKE ? OR p.codigo_barras = ?)`;
@@ -47,13 +48,14 @@ export const obtenerProductos = async (req, res) => {
 export const buscarProducto = async (req, res) => {
   try {
     const { codigo } = req.params;
+    const tienda_id = req.usuario.tienda_id;
     
     const [productos] = await pool.query(`
       SELECT p.*, c.nombre as categoria_nombre 
       FROM productos p
       LEFT JOIN categorias c ON p.categoria_id = c.id
-      WHERE p.activo = 1 AND (p.codigo = ? OR p.codigo_barras = ?)
-    `, [codigo, codigo]);
+      WHERE p.activo = 1 AND p.tienda_id = ? AND (p.codigo = ? OR p.codigo_barras = ?)
+    `, [tienda_id, codigo, codigo]);
     
     if (productos.length === 0) {
       return res.status(404).json({ error: 'Producto no encontrado' });
@@ -76,9 +78,11 @@ export const buscarProducto = async (req, res) => {
 // Obtener categorías
 export const obtenerCategorias = async (req, res) => {
   try {
+    const tienda_id = req.usuario.tienda_id;
+    
     const [categorias] = await pool.query(`
-      SELECT * FROM categorias WHERE activo = 1 ORDER BY nombre
-    `);
+      SELECT * FROM categorias WHERE activo = 1 AND tienda_id = ? ORDER BY nombre
+    `, [tienda_id]);
     
     res.json(categorias);
   } catch (error) {
@@ -90,11 +94,12 @@ export const obtenerCategorias = async (req, res) => {
 export const crearProducto = async (req, res) => {
   try {
     const { codigo, nombre, descripcion, categoria_id, precio_costo, precio_venta, codigo_barras, stock, stock_minimo, visible_pos } = req.body;
+    const tienda_id = req.usuario.tienda_id;
     
     const [result] = await pool.query(`
-      INSERT INTO productos (codigo, nombre, descripcion, categoria_id, precio_costo, precio_venta, codigo_barras, stock, stock_minimo, visible_pos, activo)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
-    `, [codigo, nombre, descripcion || null, categoria_id, precio_costo, precio_venta, codigo_barras || null, stock || 0, stock_minimo || 0, visible_pos ? 1 : 0]);
+      INSERT INTO productos (tienda_id, codigo, nombre, descripcion, categoria_id, precio_costo, precio_venta, codigo_barras, stock, stock_minimo, visible_pos, activo)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+    `, [tienda_id, codigo, nombre, descripcion || null, categoria_id, precio_costo, precio_venta, codigo_barras || null, stock || 0, stock_minimo || 0, visible_pos ? 1 : 0]);
     
     res.status(201).json({ id: result.insertId, mensaje: 'Producto creado exitosamente' });
   } catch (error) {
@@ -137,15 +142,16 @@ export const eliminarProducto = async (req, res) => {
 export const obtenerTodosProductos = async (req, res) => {
   try {
     const { busqueda, categoria, visible_pos } = req.query;
+    const tienda_id = req.usuario.tienda_id;
     
     let query = `
       SELECT p.*, c.nombre as categoria_nombre 
       FROM productos p
       LEFT JOIN categorias c ON p.categoria_id = c.id
-      WHERE 1=1
+      WHERE p.tienda_id = ?
     `;
     
-    const params = [];
+    const params = [tienda_id];
     
     if (busqueda) {
       query += ` AND (p.codigo LIKE ? OR p.nombre LIKE ? OR p.codigo_barras = ?)`;
@@ -188,11 +194,12 @@ export const obtenerTodosProductos = async (req, res) => {
 export const crearCategoria = async (req, res) => {
   try {
     const { nombre, descripcion } = req.body;
+    const tienda_id = req.usuario.tienda_id;
     
     const [result] = await pool.query(`
-      INSERT INTO categorias (nombre, descripcion, activo)
-      VALUES (?, ?, 1)
-    `, [nombre, descripcion || null]);
+      INSERT INTO categorias (tienda_id, nombre, descripcion, activo)
+      VALUES (?, ?, ?, 1)
+    `, [tienda_id, nombre, descripcion || null]);
     
     res.status(201).json({ id: result.insertId, mensaje: 'Categoría creada exitosamente' });
   } catch (error) {

@@ -89,10 +89,61 @@ export default function Login() {
         </div>
 
         {/* Usuarios de prueba */}
-        <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-xl">
-          <p className="font-semibold text-gray-700 mb-2 text-sm">Usuarios de prueba:</p>
-          <p className="text-gray-600 text-sm">👤 admin@integra.com / admin123</p>
-          <p className="text-gray-600 text-sm">👤 cajero@integra.com / cajero123</p>
+        <div className="mt-6 p-5 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl">
+          <p className="font-bold text-gray-800 mb-3 text-base flex items-center">
+            <svg className="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            Credenciales de Prueba
+          </p>
+          
+          <div className="space-y-3">
+            {/* Super Admin */}
+            <div className="bg-white p-3 rounded-lg border border-purple-200">
+              <p className="font-semibold text-purple-700 text-xs mb-1 flex items-center">
+                <span className="inline-block w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+                SUPER ADMIN (Todas las tiendas)
+              </p>
+              <p className="text-gray-700 text-sm font-mono">superadmin@integra.com</p>
+              <p className="text-gray-600 text-xs">Contraseña: super123</p>
+            </div>
+
+            {/* Tienda Principal */}
+            <div className="bg-white p-3 rounded-lg border border-green-200">
+              <p className="font-semibold text-green-700 text-xs mb-2 flex items-center">
+                <span className="inline-block w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                TIENDA PRINCIPAL
+              </p>
+              <div className="space-y-1">
+                <div>
+                  <p className="text-gray-700 text-sm font-mono">admin.principal@integra.com</p>
+                  <p className="text-gray-500 text-xs">Admin / admin123</p>
+                </div>
+                <div className="pt-1 border-t border-gray-100">
+                  <p className="text-gray-700 text-sm font-mono">cajero.principal@integra.com</p>
+                  <p className="text-gray-500 text-xs">Cajero / cajero123</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Sucursal Centro */}
+            <div className="bg-white p-3 rounded-lg border border-blue-200">
+              <p className="font-semibold text-blue-700 text-xs mb-2 flex items-center">
+                <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                SUCURSAL CENTRO
+              </p>
+              <div className="space-y-1">
+                <div>
+                  <p className="text-gray-700 text-sm font-mono">admin.centro@integra.com</p>
+                  <p className="text-gray-500 text-xs">Admin / admin123</p>
+                </div>
+                <div className="pt-1 border-t border-gray-100">
+                  <p className="text-gray-700 text-sm font-mono">cajero.centro@integra.com</p>
+                  <p className="text-gray-500 text-xs">Cajero / cajero123</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

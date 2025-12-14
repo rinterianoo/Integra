@@ -9,6 +9,7 @@ import productosRoutes from './routes/productos.js';
 import turnosRoutes from './routes/turnos.js';
 import ventasRoutes from './routes/ventas.js';
 import ordenesRoutes from './routes/ordenes.js';
+import tiendasRoutes from './routes/tiendas.js';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use('/api/productos', productosRoutes);
 app.use('/api/turnos', turnosRoutes);
 app.use('/api/ventas', ventasRoutes);
 app.use('/api/ordenes', ordenesRoutes);
+app.use('/api/tiendas', tiendasRoutes);
 
 // Ruta de prueba
 app.get('/api', (req, res) => {

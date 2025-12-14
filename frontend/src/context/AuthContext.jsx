@@ -18,11 +18,18 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const response = await api.post('/auth/login', { email, password });
-      const { token, usuario } = response.data;
+      const { token, usuario: usuarioData } = response.data;
+      
+      // Crear objeto de usuario completo con datos de la tienda
+      const usuarioCompleto = {
+        ...usuarioData,
+        tienda_id: usuarioData.tienda_id,
+        tienda_nombre: usuarioData.tienda_nombre
+      };
       
       localStorage.setItem('token', token);
-      localStorage.setItem('usuario', JSON.stringify(usuario));
-      setUsuario(usuario);
+      localStorage.setItem('usuario', JSON.stringify(usuarioCompleto));
+      setUsuario(usuarioCompleto);
       
       return { success: true };
     } catch (error) {
