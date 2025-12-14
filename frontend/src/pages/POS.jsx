@@ -11,7 +11,8 @@ import {
   BookmarkIcon, 
   ClockIcon,
   XMarkIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  HomeIcon
 } from '@heroicons/react/24/outline';
 
 export default function POS() {
@@ -178,6 +179,14 @@ export default function POS() {
           </div>
           
           <div className="flex gap-3">
+            <button
+              onClick={() => navigate('/dashboard')}
+              className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition"
+            >
+              <HomeIcon className="h-5 w-5" />
+              Dashboard
+            </button>
+            
             <button
               onClick={toggleOrdenesTemporales}
               className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition font-semibold"

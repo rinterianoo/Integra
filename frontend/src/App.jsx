@@ -2,10 +2,13 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext'
 import { CarritoProvider } from './context/CarritoContext'
 import ProtectedRoute from './components/ProtectedRoute'
+import Layout from './components/Layout'
 import Login from './pages/Login'
+import Dashboard from './pages/Dashboard'
 import POS from './pages/POS'
 import AperturaTurno from './pages/AperturaTurno'
 import CierreTurno from './pages/CierreTurno'
+import Productos from './pages/Productos'
 
 function App() {
   return (
@@ -23,10 +26,30 @@ function App() {
               } 
             />
             <Route 
+              path="/dashboard" 
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <Dashboard />
+                  </Layout>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
               path="/pos" 
               element={
                 <ProtectedRoute>
                   <POS />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/productos" 
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <Productos />
+                  </Layout>
                 </ProtectedRoute>
               } 
             />
@@ -38,7 +61,7 @@ function App() {
                 </ProtectedRoute>
               } 
             />
-            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="/" element={<Navigate to="/dashboard" />} />
           </Routes>
         </CarritoProvider>
       </AuthProvider>

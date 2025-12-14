@@ -282,3 +282,62 @@ export const cancelarVenta = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+// Obtener estadísticas del dashboard
+export const obtenerEstadisticas = async (req, res) => {
+  try {
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+    
+    const ayer = new Date(hoy);
+    ayer.setDate(ayer.getDate() - 1);
+
+    // Ventas y total de hoy
+    const [ventasHoy] = await pool.query(`
+      SELECT 
+        COUNT(*) as ventasHoy,
+        COALESCE(SUM(total), 0) as totalHoy,
+        COALESCE(SUM(cantidad_items), 0) as productosVendidos
+      FROM ventas
+      WHERE DATE(fecha_creacion) = CURDATE()
+      AND estado = 'completada'
+    `);
+
+    // Ventas y total de ayer
+    const [ventasAyer] = await pool.query(`
+      SELECT 
+        COUNT(*) as ventasAyer,
+        COALESCE(SUM(total), 0) as totalAyer
+      FROM ventas
+      WHERE DATE(fecha_creacion) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+      AND estado = 'completada'
+    `);
+
+    // Turnos activos
+    const [turnosActivos] = await pool.query(`
+      SELECT COUNT(*) as turnosActivos
+      FROM turnos
+      WHERE estado = 'abierto'
+    `);
+
+    // Productos con stock bajo
+    const [stockBajo] = await pool.query(`
+      SELECT COUNT(*) as stockBajo
+      FROM productos
+      WHERE activo = 1 AND stock <= stock_minimo
+    `);
+
+    res.json({
+      ventasHoy: parseInt(ventasHoy[0].ventasHoy) || 0,
+      totalHoy: parseFloat(ventasHoy[0].totalHoy) || 0,
+      productosVendidos: parseInt(ventasHoy[0].productosVendidos) || 0,
+      ventasAyer: parseInt(ventasAyer[0].ventasAyer) || 0,
+      totalAyer: parseFloat(ventasAyer[0].totalAyer) || 0,
+      turnosActivos: parseInt(turnosActivos[0].turnosActivos) || 0,
+      stockBajo: parseInt(stockBajo[0].stockBajo) || 0
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

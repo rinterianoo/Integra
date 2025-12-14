@@ -19,7 +19,7 @@ export default function Login() {
     const result = await login(email, password);
     
     if (result.success) {
-      navigate('/pos');
+      navigate('/dashboard');
     } else {
       setError(result.error);
     }

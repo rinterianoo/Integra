@@ -3,13 +3,15 @@ import {
   crearVenta, 
   obtenerVentasTurno, 
   obtenerDetalleVenta,
-  cancelarVenta 
+  cancelarVenta,
+  obtenerEstadisticas
 } from '../controllers/ventasController.js';
 import { verificarToken } from '../controllers/authController.js';
 
 const router = express.Router();
 
 router.post('/', verificarToken, crearVenta);
+router.get('/estadisticas', verificarToken, obtenerEstadisticas);
 router.get('/turno/:turno_id', verificarToken, obtenerVentasTurno);
 router.get('/:id', verificarToken, obtenerDetalleVenta);
 router.put('/:id/cancelar', verificarToken, cancelarVenta);
