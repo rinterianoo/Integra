@@ -247,7 +247,7 @@ export default function Productos() {
               <select
                 value={categoriaFiltro}
                 onChange={(e) => setCategoriaFiltro(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
               >
                 <option value="">Todas las categorías</option>
                 {categorias.map(cat => (
@@ -371,7 +371,7 @@ export default function Productos() {
                     type="text"
                     value={formProducto.codigo}
                     onChange={(e) => setFormProducto({...formProducto, codigo: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
                     required
                   />
                 </div>
@@ -382,7 +382,7 @@ export default function Productos() {
                     type="text"
                     value={formProducto.codigo_barras}
                     onChange={(e) => setFormProducto({...formProducto, codigo_barras: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
                   />
                 </div>
               </div>
@@ -393,7 +393,7 @@ export default function Productos() {
                   type="text"
                   value={formProducto.nombre}
                   onChange={(e) => setFormProducto({...formProducto, nombre: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
                   required
                 />
               </div>
@@ -403,7 +403,7 @@ export default function Productos() {
                 <textarea
                   value={formProducto.descripcion}
                   onChange={(e) => setFormProducto({...formProducto, descripcion: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
                   rows="2"
                 />
               </div>
@@ -413,7 +413,7 @@ export default function Productos() {
                 <select
                   value={formProducto.categoria_id}
                   onChange={(e) => setFormProducto({...formProducto, categoria_id: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
                 >
                   <option value="">Sin categoría</option>
                   {categorias.map(cat => (
@@ -430,7 +430,7 @@ export default function Productos() {
                     step="0.01"
                     value={formProducto.precio_costo}
                     onChange={(e) => setFormProducto({...formProducto, precio_costo: parseFloat(e.target.value) || 0})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
                   />
                 </div>
 
@@ -441,7 +441,7 @@ export default function Productos() {
                     step="0.01"
                     value={formProducto.precio_venta}
                     onChange={(e) => setFormProducto({...formProducto, precio_venta: parseFloat(e.target.value) || 0})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
                     required
                   />
                 </div>
@@ -464,7 +464,7 @@ export default function Productos() {
                     type="number"
                     value={formProducto.stock}
                     onChange={(e) => setFormProducto({...formProducto, stock: parseInt(e.target.value) || 0})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
                   />
                 </div>
 
@@ -474,7 +474,7 @@ export default function Productos() {
                     type="number"
                     value={formProducto.stock_minimo}
                     onChange={(e) => setFormProducto({...formProducto, stock_minimo: parseInt(e.target.value) || 0})}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
                   />
                 </div>
               </div>
@@ -542,7 +542,7 @@ export default function Productos() {
                   type="text"
                   value={formCategoria.nombre}
                   onChange={(e) => setFormCategoria({...formCategoria, nombre: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
                   required
                 />
               </div>
@@ -552,7 +552,7 @@ export default function Productos() {
                 <textarea
                   value={formCategoria.descripcion}
                   onChange={(e) => setFormCategoria({...formCategoria, descripcion: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
                   rows="2"
                 />
               </div>

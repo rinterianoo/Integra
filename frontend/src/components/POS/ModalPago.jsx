@@ -156,7 +156,7 @@ export default function ModalPago({ total, onCerrar, onConfirmar }) {
                         type="number"
                         value={pago.monto}
                         onChange={(e) => actualizarMonto(index, e.target.value)}
-                        className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="w-full pl-8 pr-4 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900"
                         step="0.01"
                         min="0"
                       />
@@ -173,7 +173,7 @@ export default function ModalPago({ total, onCerrar, onConfirmar }) {
                         value={pago.referencia}
                         onChange={(e) => actualizarReferencia(index, e.target.value)}
                         placeholder="Ej: 1234567890"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="w-full px-4 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 placeholder-gray-400"
                       />
                     </div>
                   )}

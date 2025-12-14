@@ -62,7 +62,7 @@ export default function AperturaTurno() {
                 type="number"
                 value={montoInicial}
                 onChange={(e) => setMontoInicial(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-lg"
+                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-lg text-gray-900"
                 placeholder="0.00"
                 step="0.01"
                 min="0"
@@ -81,7 +81,7 @@ export default function AperturaTurno() {
             <textarea
               value={notas}
               onChange={(e) => setNotas(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 placeholder-gray-400"
               placeholder="Observaciones sobre la apertura..."
               rows="3"
             />
